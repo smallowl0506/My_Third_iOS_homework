@@ -7,8 +7,11 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 struct ContentView: View {
+    let player = AVPlayer()
+    @State var looper: AVPlayerLooper?
     @State private var scale: CGFloat = 1
     @State private var brightnessAmount: Double = 0
     var body: some View {
@@ -41,6 +44,12 @@ struct ContentView: View {
                     }
                 }
             }
+        }.onAppear{
+            let player = AVQueuePlayer()
+            let fileUrl = Bundle.main.url(forResource: "Happy Music♪", withExtension: "mp4")!
+            let item = AVPlayerItem(url: fileUrl)
+            self.looper = AVPlayerLooper(player: player, templateItem: item)
+            player.play()
         }
         
     }

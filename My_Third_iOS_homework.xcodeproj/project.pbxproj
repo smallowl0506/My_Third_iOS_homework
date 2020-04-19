@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		497FB97B244C2D6200EF64E4 /* Happy Music♪.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 497FB97A244C2D6200EF64E4 /* Happy Music♪.mp4 */; };
 		49D32027244ABB970046B0E7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D32026244ABB970046B0E7 /* AppDelegate.swift */; };
 		49D32029244ABB970046B0E7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D32028244ABB970046B0E7 /* SceneDelegate.swift */; };
 		49D3202B244ABB970046B0E7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D3202A244ABB970046B0E7 /* ContentView.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		497FB97A244C2D6200EF64E4 /* Happy Music♪.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Happy Music♪.mp4"; sourceTree = "<group>"; };
 		49D32023244ABB970046B0E7 /* My_Third_iOS_homework.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = My_Third_iOS_homework.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49D32026244ABB970046B0E7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		49D32028244ABB970046B0E7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -56,6 +58,7 @@
 		49D32025244ABB970046B0E7 /* My_Third_iOS_homework */ = {
 			isa = PBXGroup;
 			children = (
+				497FB97A244C2D6200EF64E4 /* Happy Music♪.mp4 */,
 				49D32026244ABB970046B0E7 /* AppDelegate.swift */,
 				49D32028244ABB970046B0E7 /* SceneDelegate.swift */,
 				49D3202A244ABB970046B0E7 /* ContentView.swift */,
@@ -133,6 +136,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				497FB97B244C2D6200EF64E4 /* Happy Music♪.mp4 in Resources */,
 				49D32033244ABB9A0046B0E7 /* LaunchScreen.storyboard in Resources */,
 				49D32030244ABB9A0046B0E7 /* Preview Assets.xcassets in Resources */,
 				49D3202D244ABB9A0046B0E7 /* Assets.xcassets in Resources */,
