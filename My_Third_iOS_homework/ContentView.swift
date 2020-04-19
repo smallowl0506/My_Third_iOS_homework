@@ -12,38 +12,39 @@ struct ContentView: View {
     @State private var scale: CGFloat = 1
     @State private var brightnessAmount: Double = 0
     var body: some View {
-        VStack {
-            GeometryReader { geometry in
-                VStack {
-                    Image("D4DJ")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: geometry.size.width,height: geometry.size.width / 4 * 3)
-                    .clipped()
-                    .brightness(self.brightnessAmount)
-                    Form {
-                        BrightnessSlider(brightnessAmount:self.$brightnessAmount)
-                        DayPickerView()
-                        BuyTicketView()
-                        RoleChoiceView()
-                        BlendChoiceView()
-                        TypeNameView()
-                        GoConcertView()
-                        GoSecondView()
+        ZStack{
+            Image("D4DJ_SHADOW")
+            .resizable()
+            .frame(width: 400, height: 800)
+            .opacity(0.5)
+            VStack {
+                GeometryReader { geometry in
+                    VStack {
+                        Image("D4DJ")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: geometry.size.width,height: geometry.size.width / 4 * 3)
+                        .clipped()
+                        .brightness(self.brightnessAmount)
+                        .scaleEffect(self.scale)
+                        Form {
+                            BrightnessSlider(brightnessAmount:self.$brightnessAmount)
+                            ScaleSlider(scale:self.$scale)
+                            TypeNameView()
+                            DayPickerView()
+                            BuyTicketView()
+                            GoConcertView()
+                            Text("下方可以選擇Blend效果")
+                            BlendChoiceView()
+                            GoSecondView()
+                        }
                     }
                 }
             }
         }
+        
     }
 }
-//---------------練習用slider做縮放功能------------
-          /*Image("D4DJ")
-             .resizable()
-             .frame(width: 420, height: 200)
-             .scaleEffect(scale)
-           Slider(value: $scale, in: 0...1, step: 0.1)
-           .accentColor(.orange)
-          Text("\(scale, specifier: "%.2f")")*/
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
@@ -58,12 +59,25 @@ struct BrightnessSlider: View {
     var body: some View {
         HStack {
             Text("亮度")
-            Slider(value: self.$brightnessAmount, in: 0...1,
+            Slider(value: self.$brightnessAmount, in: 0...0.5, step: 0.05,
                    minimumValueLabel: Image(systemName:
                     "sun.max.fill").imageScale(.small), maximumValueLabel:
-            Image(systemName: "sun.max.fill").imageScale(.large)) {
-                Text("")
-            }
+            Image(systemName: "sun.max.fill").imageScale(.large))
+            {
+                Text("\(brightnessAmount, specifier: "%.2f")")
+            }.accentColor(.yellow)
+        }
+    }
+}
+
+struct ScaleSlider: View {
+    @Binding var scale: CGFloat
+    var body: some View {
+        HStack {
+            Text("大小")
+            Slider(value: self.$scale, in: 0...1) {
+                Text("\(scale, specifier: "%.2f")")
+            }.accentColor(.red)
         }
     }
 }
@@ -103,9 +117,21 @@ struct SecondView: View {
  @Binding var showSecondPage: Bool
 
  var body: some View {
- Button("回到第一頁") {
- self.showSecondPage = false
- }
+    ZStack{
+        Image("D4DJ_BG")
+            .resizable()
+            .frame(width: 400, height: 800)
+            .opacity(0.2)
+        VStack{
+            RoleChoiceView()
+            .padding()
+            Button("回到演唱會頁面") {
+            self.showSecondPage = false
+            }
+        }
+    }
+    
+ 
  }
 }
 
@@ -119,7 +145,7 @@ struct GoSecondView: View {
     @State private var showSecondPage = false
     var body: some View {
         VStack{
-            Button("點我看第二頁") {
+            Button("D4DJ角色組合") {
                 self.showSecondPage = true
             }
             .sheet(isPresented: self.$showSecondPage) {
@@ -136,9 +162,13 @@ struct RoleChoiceView: View {
     var roles = ["Happy Around!", "Peaky P-key", "Photon Maiden", "merm4id","燐舞曲"]
     var body: some View {
         VStack {
-            Toggle("我要選角色", isOn: self.$selectRole)
+            Image(selectedName)
+            .resizable()
+            .scaledToFill()
+            .frame(width: 350, height: 250)
+            Toggle("我要選角色組合", isOn: self.$selectRole)
             if self.selectRole {
-                Picker(selection: self.$selectedName, label: Text("選擇角色")) {
+                Picker(selection: self.$selectedName, label: Text("選擇最愛的組合")) {
                     ForEach(self.roles, id: \.self) { (role) in
                         Text(role)
                     }
@@ -156,7 +186,7 @@ struct BuyTicketView: View {
     var body: some View {
         VStack {
             Text("買 \(self.number) 張 演唱會門票")
-            Stepper("買 門票", value: self.$number)
+            Stepper("買 門票", value: self.$number,in: 0...10)
                 .labelsHidden()
         }
     }
@@ -184,11 +214,13 @@ struct BlendChoiceView: View {
     var body: some View {
         VStack{
             ZStack {
-                Image("D4DJ")
+                Image("D4DJ_LIVE")
                     .resizable()
+                    .frame(width: 380, height: 250)
                     .opacity(0.5)
                 Image("star")
                     .resizable()
+                    .frame(width: 380, height: 250)
                     .blendMode(self.selectBlend)
                 //.blendMode(.screen)
                 //.blendMode(.colorBurn)
@@ -209,7 +241,7 @@ struct TypeNameView: View {
     @State private var yourName = ""
     var body: some View {
         VStack{
-            TextField("你的名字", text: self.$yourName)
+            TextField("請寫下你的大名", text: self.$yourName)
                 .padding()
                 .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.black, lineWidth: 3))
                 .padding()
